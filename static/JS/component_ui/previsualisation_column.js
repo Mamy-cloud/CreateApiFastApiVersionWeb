@@ -45,11 +45,6 @@ export function showPreview(columns) {
   });
 }
 
-// ⚡ Écouteur sur le bouton "Ajouter une colonne"
-/* document.getElementById("addColumnBtn").addEventListener("click", () => {
-  addColumn(); // ajoute une ligne dans le tableau de saisie
-}); */
-
 // ⚡ Écouteur sur le bouton "Prévisualiser"
 document.getElementById("previewBtn").addEventListener("click", () => {
   const columns = getColumnsJSON();

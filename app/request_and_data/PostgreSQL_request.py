@@ -1,5 +1,6 @@
 #----------------------create table------------------------------
 from sqlalchemy import text
+import re
 
 def build_create_table_sql(table_name, columns, default_values):
     sql = f'CREATE TABLE "{table_name}" (\n    id SERIAL PRIMARY KEY,\n'
@@ -62,35 +63,27 @@ def post_rename_table_sql(old_name: str, new_name: str):
 
 # PostgreSQL_request.py
 
-import re
-from sqlalchemy import text
-
 def safe_identifier(name: str) -> str:
-    """Vérifie que le nom est sûr pour SQL (lettres, chiffres, underscore)."""
     if not re.match(r"^[A-Za-z_][A-Za-z0-9_]*$", name):
         raise ValueError(f"Nom invalide : {name}")
     return name
 
 def post_add_columns_sql(table_name: str, columns: list[dict]):
-    """
-    Génère une requête SQL pour ajouter une ou plusieurs colonnes.
-
-    columns = [
-        {"name": "col1", "type": "INTEGER", "default": "DEFAULT 0"},
-        {"name": "col2", "type": "VARCHAR", "default": "DEFAULT ''"}
-    ]
-    """
     table_name = safe_identifier(table_name)
     column_clauses = []
     for col in columns:
         col_name = safe_identifier(col["name"])
         col_type = col["type"].upper()
-        default_value = col.get("default", "")
-        column_clauses.append(f'"{col_name}" {col_type} {default_value}')
+        default_value = col.get("default")
+        if default_value:
+            clause = f'"{col_name}" {col_type} DEFAULT {default_value}'
+        else:
+            clause = f'"{col_name}" {col_type}'
+        column_clauses.append(clause)
 
-    # On concatène toutes les colonnes avec ALTER TABLE
-    sql = f'ALTER TABLE "{table_name}" ADD COLUMN ' + ", ADD COLUMN ".join(column_clauses)
+    sql = f'ALTER TABLE "{table_name}" ' + ", ".join([f'ADD COLUMN IF NOT EXISTS {clause}' for clause in column_clauses])
     return text(sql)
+
 
 
 
