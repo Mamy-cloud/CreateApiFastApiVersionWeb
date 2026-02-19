@@ -1,0 +1,4 @@
+nb: lors du post / get / put / delete, il est nécessaire de penser au schéma de db, maj
+
+Ne pas oublier le pool et async côté front et back end
+ne jamais aussi oublier le SQLAlchemy 2x.

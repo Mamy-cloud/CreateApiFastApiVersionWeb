@@ -1,0 +1,123 @@
+Voici la structure de base et comment mon application msspr convertor/generator API focntionne:
+interface graphique - json - fastApi - json - database
+
+Ne pas oublier le pool et async côté front et back end
+
+donc il y aura toujours un fichier nommé type_data.js et type_data.py
+nb: pour le backends il faut toujours utiliser un router sur main.py pour les get/post/put/delete
+ne jamais aussi oublier le SQLAlchemy 2x.
+
+A- création de table: 
+
+1---------------------------- côté front-end---------------------------------------
+
+ a- interface graphique :
+
+    principe:
+    -création nom de la table
+    -création nom des colonnes
+    -énumérer les types de données qu'on va utiliser dans type_data.js
+    puis il sera convertit en JSON front-end
+
+    pour cela il faut un fichier create_table.js
+
+ b- Dans le JSON: 
+    a-1-Dans un fichier JSON :
+        -Les clés (comme id, nom, age, email) représentent les champs.
+        -Les valeurs (comme 1, "Alice", 23, "alice@example.com") sont les données stockées.
+        -Un objet { ... } correspond à une ligne.
+        -Une liste [ {...}, {...} ] correspond à une table entière avec plusieurs lignes.
+
+    Voici le résultat attendu lors de la création de la table :
+    {
+        "table_name": "name of table",
+        "column": {
+            "column_name": "nom de la colonne",
+            "type_de_colonne": "dans la list_type_data"
+        },
+        {
+            "column_name": "nom de la colonne",
+            "type_de_colonne": "dans la list_type_data"
+        },
+        {
+            "column_name": "nom de la colonne2",
+            "type_de_colonne": "dans la list_type_data"
+        },
+        {
+            "column_name": "nom de la colonne3",
+            "type_de_colonne:" "dans la list_type_data"
+        },
+    }
+
+    puis le json sera envoyé en requête 
+    on met dans le main.py l'url pour afficher la table.html
+2-----------------------------------côté back-end-----------------------------------
+    a - Dans le fast API:
+
+    -créé le fichier /Crud       /method_get     /get_create_table.py
+    -le serveur reçoit le JSON.
+    -il reçoit la table avec le table_name
+    -il reçoit la colonne avec column_name et type_of_column 
+    -il fait correspondre les types de colonne avec les type_of_column dans type_data.py
+    -il fait correspondre type_of_column avec les valeur par défauts default_value
+
+    -il fait une requête sql comme ainsi:
+
+    CREATE TABLE utilisateurs (
+        id SERIAL PRIMARY KEY,
+        
+        column_name type_of_column default_value,
+    );
+
+    -il faut créer différents requêtes dans request_and_data/PostgreSQL_request.py
+    id serial primary key sera créé automatiquement
+
+    pour cela il faut créé le fichier create_table.py
+    dans le fichier create_table.py, on met les url backends
+    il renvoie un fichier JSON avant de l'envoyer en SQL
+    
+3---------------------------côté SQL -------------------------------------------
+
+-Connexion à PostgreSQL/Mysql/noSql en localhost ou en ligne
+donc il faut un fichier database_localhost.py et database_web.py
+
+FastAPI utilise une librairie comme asyncpg ou SQLAlchemy pour se connecter à ta base PostgreSQL.
+
+La requête SQL est envoyée au serveur PostgreSQL.
+
+Exécution dans PostgreSQL
+
+PostgreSQL analyse la requête.
+
+Il crée une nouvelle table utilisateurs avec les colonnes et contraintes définies :
+
+id → entier auto‑incrémenté (clé primaire).
+nom → texte obligatoire.
+age → entier.
+email → texte unique.
+actif → booléen avec valeur par défaut true.
+inscription → horodatage avec valeur par défaut CURRENT_TIMESTAMP.
+
+-----------------------------------bonne pratique pour éviter les erreurs------------------
+
+Minuscules uniquement
+
+Underscore '_' pour séparer les mots
+
+Pas d’accents, pas d’espaces, pas d’apostrophes, pas de caractère spéciale
+
+pas de chiffre au début mais on peut les mettres après une lettre (ex. user2026, table_14_17h02)
+
+fait moi alors un code js avec checkbox, et si l'une des conditions est remplie, la couleur de la lettre devient vert et le chechobx est coché dans le cas contraire le checkbox est en rouge:
+
+voici la structure du chexbox:
+<input type="checkbox">
+        <label for="option1">Minuscules uniquement</label>
+
+        <input type="checkbox">
+        <label for="option1">Pas d’accents, pas d’espaces, pas d’apostrophes, pas de caractère spéciale</label>
+
+        <input type="checkbox">
+        <label for="option1">pas de chiffre au début mais on peut les mettres après une lettre (ex. user2026, table_14_17h02)</label>
+
+le code vérifie tous ces conditions

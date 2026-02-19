@@ -1,0 +1,76 @@
+Gestion du cycle de vie
+
+asyncio.run(coro) → lance une coroutine principale et gère la boucle d’événements.
+
+asyncio.create_task(coro) → programme une coroutine pour s’exécuter en arrière‑plan.
+
+Attente et délais
+
+asyncio.sleep(secs) → suspend une coroutine sans bloquer la boucle.
+
+asyncio.wait_for(coro, timeout) → attend une coroutine avec délai maximum.
+
+asyncio.timeout(secs) → contexte pour limiter la durée d’une opération.
+
+Synchronisation
+
+asyncio.gather(*coros) → exécute plusieurs coroutines en parallèle et récupère toutes les réponses.
+
+asyncio.wait(tasks) → attend que certaines ou toutes les tâches soient terminées.
+
+asyncio.shield(coro) → protège une coroutine contre l’annulation.
+
+Communication entre tâches
+
+asyncio.Queue() → file d’attente asynchrone pour échanger des données entre coroutines.
+
+asyncio.Event() → signal pour synchroniser plusieurs coroutines.
+
+asyncio.Lock() → verrou pour éviter les accès concurrents à une ressource.
+
+Réseau et I/O
+
+asyncio.open_connection(host, port) → ouvre une connexion TCP asynchrone.
+
+asyncio.start_server(handler, host, port) → lance un serveur TCP asynchrone.
+
+asyncio.StreamReader / StreamWriter → lecture/écriture asynchrone sur des flux.
+
+✅ Exemple pratique
+Exécuter deux tâches en parallèle :
+
+python
+import asyncio
+
+async def task1():
+    await asyncio.sleep(2)
+    return "Résultat 1"
+
+async def task2():
+    await asyncio.sleep(3)
+    return "Résultat 2"
+
+async def main():
+    results = await asyncio.gather(task1(), task2())
+    print(results)
+
+asyncio.run(main())
+👉 Ici, les deux tâches s’exécutent en même temps. Résultat affiché après 3 secondes :
+
+Code
+['Résultat 1', 'Résultat 2']
+En résumé, asyncio est un outil de coordination : il permet de lancer plusieurs opérations en parallèle, de gérer les délais, et de synchroniser les coroutines sans bloquer ton programme.
+
+⚡ Veux‑tu que je te prépare un mini‑exemple où un WebSocket FastAPI utilise asyncio.gather() pour envoyer des messages réguliers tout en écoutant les messages du client en parallèle ?
+
+et c'est quoi le coroutines ?
+Une coroutine en Python est une fonction spéciale qui peut être suspendue et reprendre plus tard, ce qui permet d’exécuter plusieurs tâches de façon asynchrone sans bloquer le programme.
+
+🔎 Caractéristiques d’une coroutine
+Définie avec async def au lieu de def.
+
+Elle ne s’exécute pas directement : elle retourne un objet coroutine.
+
+Pour l’exécuter, il faut utiliser await ou la lancer dans la boucle d’événements (asyncio.run, asyncio.create_task).
+
+Elle peut être mise en pause avec await (par exemple await asyncio.sleep(10)), ce qui laisse la boucle d’événements continuer d’autres tâches.

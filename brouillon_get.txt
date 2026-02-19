@@ -1,0 +1,74 @@
+nb: lors du post / get / put / delete, il est nécessaire de penser au schéma de db, maj en vidant le cache de l'ORM
+il faut aussi mettre les endpoints
+
+ne pas oublier les endpoints
+
+Ne pas oublier le pool et async côté front et back end
+ne jamais aussi oublier le SQLAlchemy 2x.
+
+column_name
+table_name
+row_name
+value_data
+
+A: get table
+
+---------------------------------liste des noms des tables-------------------------
+1-côté sql:
+relier par database_localhost.py ou database_web.py
+
+2-côté fastAPI:
+requête sql pour avoir le JSON dans le fichier 
+PostgreSQL_req.py, Mysql_req.py et noSql_req.py
+
+-conversion en JSON:
+{"table_name": "nom de la table"}
+-envoyé en front-end sur le fichier : table.html
+
+3-côté front-end:
+créé un fichier get_name_table.js
+sur le html, mettre en bas de la création de table la liste des tables existants
+
+--------------------------------affichage de la table dans un fichier table_name.html--------------
+
+
+
+1-côté sql:
+relier par database_localhost.py ou database_web.py
+
+2-côté fastAPI:
+requête sql pour avoir le JSON dans le fichier 
+PostgreSQL_req.py, Mysql_req.py et noSql_req.py
+on fait correspondre le sql par le list_type_data et la value_data
+si la valeur dans le sql est par défaut, on met la valeur par défaut dans type_datapy
+
+-conversion en JSON en back-end:
+{
+        "table_name": "name of table",
+        "column": [{
+            "column_name": "nom de la colonne",
+            "type_de_colonne1": "dans la list_type_data",
+            
+        },
+        {
+            "column_name": "nom de la colonne",
+            "type_de_colonne": "dans la list_type_data",
+            
+        }],
+
+        "row": [{
+            "column_name": "nom de la colonne",
+            "value": "value_data",
+        }]
+        
+    }
+
+envoyer en Json
+-envoyé en front-end sur le fichier : table_name.html
+-créer un fichier get_column_items.js
+-créé une interface en forme de tableau
+
+---------------------------------------get row-----------------------------------------------
+résultat JSON
+
+[{"row_name": "nom de la ligne"},{"value_data": "valeur de la ligne"}]

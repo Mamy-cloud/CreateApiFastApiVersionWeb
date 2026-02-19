@@ -1,0 +1,7 @@
+donc fait moi :
+
+Front‑end : l’utilisateur modifie la table localement.
+
+Bouton “Envoyer” : envoie les changements via une requête HTTP (PUT/POST).
+
+WebSocket : sert uniquement à notifier les autres utilisateurs qu’une mise à jour a eu lieu, afin qu’ils rafraîchissent leur vue.

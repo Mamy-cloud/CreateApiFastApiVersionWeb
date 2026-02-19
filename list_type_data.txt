@@ -1,0 +1,47 @@
+# sql_types.py
+SQL_TYPES = {
+    "numeric": ["INTEGER", "SMALLINT", "BIGINT", "DECIMAL", "FLOAT"],
+    "char": ["CHAR", "VARCHAR", "TEXT"],
+    "boolean": ["BOOLEAN"],
+    "datetime": ["DATE", "TIME", "DATETIME", "TIMESTAMP"],
+    "money": ["MONEY", "DECIMAL"],
+    "url": ["URL", "IMAGE_URL", "VIDEO_URL"]
+}
+
+numeric (INTEGER, SMALLINT, BIGINT, DECIMAL, FLOAT)
+
+Par défaut : NULL
+
+Tu peux définir un DEFAULT 0 ou un autre nombre si tu veux.
+
+char (CHAR, VARCHAR, TEXT)
+
+Par défaut : NULL
+
+Tu peux définir un DEFAULT '' (chaîne vide).
+
+boolean (BOOLEAN)
+
+Par défaut : NULL
+
+Souvent défini comme DEFAULT true ou DEFAULT false.
+
+datetime (DATE, TIME, DATETIME, TIMESTAMP)
+
+Par défaut : NULL
+
+Tu peux définir DEFAULT CURRENT_DATE, DEFAULT CURRENT_TIME ou DEFAULT CURRENT_TIMESTAMP.
+
+money (MONEY, DECIMAL)
+
+Par défaut : NULL
+
+Tu peux définir DEFAULT 0.00.
+
+url (URL, IMAGE_URL, VIDEO_URL)
+
+Ce sont en pratique des chaînes (TEXT ou VARCHAR).
+
+Par défaut : NULL
+
+Tu peux définir DEFAULT ''

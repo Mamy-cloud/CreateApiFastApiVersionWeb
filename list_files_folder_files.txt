@@ -1,0 +1,63 @@
+files:
+
+type_data.js et type_data.py
+
+il faudra aussi créé des modes synchones et asynchrones pour les db
+
+--------------------create_table-----------------------
+fichier html interface graphique : table.html
+liste type data : type_data.js
+ficher js: create_table.js
+
+requête sql: PostgreSQL_req.py, Mysql_req.py et noSql_req.py
+fichier py: main.py
+création table: create_table.py
+database requête : database_localhost.py et database_web.py
+
+--------------------hiérarchisation du dossier-------------------------------
+projet  
+           
+    ------app------main.py
+           
+            ------schema.py (pydantic)
+           
+            -----database                   /database_localhost.py (pour relier la database)
+                                            /database_web.py
+           
+            ------request_and_data          /type_data.py
+                                            /PostgreSQL_request.py
+                                            /Mysql_request.py
+                                            /SQL_request.py
+           
+            ------Crud                      /method_get     /get_create_table.py
+                                            /method_get      /get_table.py
+           
+                                            /method_post    /post_row.py
+                                                            /post_column.py
+           
+                                            /method_put     /put_row.py
+                                                            /put_column.py
+           
+                                            /method_delete   /delete_table.py
+                                                            /delete_row.py
+                                                            /delete_column.py
+           
+          
+    ------templates                         /table.html
+                                            /table-name.html
+           
+    ------static                            /Js         /method_get     /get_create_table.js
+                                                        /get_table.js
+           
+                                                        /method_post     /post_row.js
+                                                                        /post_column.js
+                                        
+                                                        /method_put     /put_row.js
+                                                                        /put_column.js
+                                        
+                                                        /method_delete   /delete_table.js
+                                                                        /delete_row.js
+                                                                        /delete_column.js
+           
+    ------.env
+    ------.gitignore

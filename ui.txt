@@ -1,0 +1,14 @@
+création de l'interface:
+il faut le mettre dans main.py
+
+code :
+# Monter le dossier static
+app.mount("/static", StaticFiles(directory=BASE_DIR / "static"), name="static")
+
+# Route GET pour afficher l'interface graphique
+@app.get("/admin/tables")
+async def get_table_page():
+    file_path = BASE_DIR / "templates" / "tables.html"
+    if not file_path.exists():
+        raise RuntimeError(f"Le fichier HTML n'existe pas : {file_path}")
+    return FileResponse(file_path)

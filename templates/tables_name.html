@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Table</title>
+</head>
+<body>
+
+    <!-- Bouton retour --> 
+    <button id="backBtn">Revenir à la liste des tables</button>
+    <br>
+    <h1 id="tableTitle"></h1>
+
+    <form id="renameTableForm">
+        <input type="text" id="newName" placeholder="Nouveau nom de table" required>
+        <button type="submit">Renommer</button>
+    </form>
+
+    <h2>Ajouter une colonne</h2>
+
+    <form id="addColumnForm" data-tablename="ma_table">
+        <input type="text" id="columnName" placeholder="Nom de la colonne" required>
+        <select id="typeSelect">
+            <option value="">-- Choisir un type --</option>
+        </select>
+
+        <button type="button" id="addColumnBtn">Ajouter colonne</button>
+        
+    <!-- Table pour voir les colonnes ajoutées avant envoi -->
+     <h2>visualisation en cache</h2>
+    <table border="1" id="columnsPreview">
+        <thead>
+            <tr>
+                <th>Nom de la colonne</th>
+                <th>Type</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <br>
+
+     <button type="button" id="validateColumnsBtn">Valider colonnes</button>
+    </form>
+    
+    <p>---------------------------------------------------------------------------------</p>
+    <h2>tableau venant du db</h2>
+    <!-- <table border="1">
+        <thead>
+            <tr>
+                <th>Nom de colonne</th>
+                <th>Type de donnée</th>
+            </tr>
+        </thead>
+        <tbody id="columnsTable"></tbody>
+    </table> -->
+
+    <table>
+        <thead id="columnsTable"></thead> <!-- Contiendra uniquement les noms de colonnes -->
+        <tbody id="rowsTable"></tbody>    <!-- Contiendra les données des lignes si besoin -->
+    </table>
+
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Nom de la ligne</th>
+                <th>Valeur</th>
+            </tr>
+        </thead>
+        <tbody id="rowsTable"></tbody>
+    </table>
+
+
+    <script>
+    // Récupérer le nom de la table depuis l’URL
+    const pathParts = window.location.pathname.split("/");
+    const tableName = pathParts[pathParts.length - 1];
+    document.getElementById("tableTitle").textContent = "Colonnes de la table : " + tableName;
+    document.getElementById("tableTitle").textContent =
+            "Colonnes de la table : " + tableName;
+
+        document.getElementById("renameTableForm")
+            .dataset.oldname = tableName;
+    </script>
+    
+    
+    <!-- get column -->
+     <script src="/static/JS/method_get/get_column.js"></script>
+
+     <!-- charger le webSocket de fastApi -->
+     <!-- <script src="/static/JS/webSocket.js"></script> -->
+
+     <script>
+        // Action du bouton retour
+        document.getElementById("backBtn").addEventListener("click", () => {
+            // Redirection vers la page qui liste les tables
+            window.location.href = "/admin/tables";
+        });
+
+     </script>
+
+     <script src="/static/JS/method_get/get_row.js"></script>
+
+     <script src="/static/JS/method_post/post_rename_table.js"></script>
+
+     <script src="/static/JS/method_post/post_column.js"></script>
+
+     <script src="/static/JS/list_type_data.js"></script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+-------------------------pour le traitement synchones-------------------------
+on n'utilise pas de await et async dans les fichier.py de databe et dans les fichier.py des méthodes Crud
+-------------------------pour le traitement synchones----------------------------
+1- on met asyncpg dans le .env de data_url, on utilise de await et async dans les fichier.py de databe et dans les fichier.py des méthodes Crud
+2- mettre le webSocket dans un dossier traitement_asynch/webSocket.py
+3-lors des appels dans le dans les fichiers.py de request, il faut les importer en fonction dans les methodes gets
+ne jamais aussi oublier le SQLAlchemy 2x.
+
+4-pour l'utilisation de asyncpg et SQLAlchemy il faut retirer sslmode=required et le changin_dung=required

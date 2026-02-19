@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Créer une table</title>
+    
+</head>
+<body>
+    <h1>Création d'une table SQL</h1>
+    <form id="createTableForm">
+        <label for="tableName">Nom de la table :</label>
+        <input type="text" id="tableName" name="tableName" required>
+        <!-- Ici tu insères le bloc de règles --> 
+        <div class="verification_name" data-target="tableName"></div>
+        <br>
+
+
+
+        <div id="columns">
+            <h3>Colonnes</h3>
+            <div class="column">
+                <input type="text" name="column_name" placeholder="Nom de colonne" required>
+                <select name="type_of_column" id="typeSelect"></select>
+            </div>
+        </div>
+        <!-- Ici tu insères le bloc de règles --> 
+        <div class="verification_name" data-target="column_name"></div>
+
+
+        <button type="button" id="addColumnBtn" onclick="addColumn()">Ajouter une colonne</button>
+        <button type="submit" id="createTableBtn">Créer la table</button>
+
+        
+
+    </form>
+
+    
+
+   <!--  pour afficher la liste des tables-->
+
+    <h1>Liste des tables existantes</h1> 
+    
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Nom de la table</th>
+            </tr>
+        </thead>
+        <tbody id="tablesList">
+           
+        </tbody>
+    </table>
+
+
+    <!-- Charger la liste des types -->
+    <script src="/static/JS/list_type_data.js"></script>
+
+    <!-- Charger la logique de création -->
+    <script src="/static/JS/method_get/get_create_table.js"></script>
+
+    <!-- charger la liste des tables -->
+     <script src="/static/JS/method_get/get_list_table.js"></script>
+
+     <!-- charger le webSocket de fastApi -->
+     <!-- <script src="/static/JS/webSocket.js"></script> -->
+
+     <!-- <script> 
+        document.getElementById("openTableBtn").addEventListener("click", () => 
+        { const tableName = document.getElementById("tableSelect").value; 
+            if (tableName) {
+                 window.location.href = `/admin/${tableName}`; 
+                 } 
+            else { alert("Veuillez sélectionner une table !"); } 
+            }); 
+    </script> -->
+
+    <!-- toujour l'inclure pour vérifier le nom et l'adapter le getElementById -->
+     <script type="module" src="/static/JS/gestion_error/gestion_error_name.js"></script>
+    <script type="module" src="/static/JS/gestion_error/verification_name_create_column.js"></script>
+     <script type="module" src="/static/JS/gestion_error/verification_name_create_column.js"></script>
+      <script type="module" src="/static/JS/gestion_error/verification_button_create_table.js"></script>
+    
+    <!-- ----------------------------------------------------------------------------------->
+</body>
+</html>
