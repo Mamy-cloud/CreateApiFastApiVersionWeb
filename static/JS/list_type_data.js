@@ -1,10 +1,10 @@
 const SQL_TYPES = {
-    "numeric": ["INTEGER", "SMALLINT", "BIGINT", "DECIMAL", "FLOAT"],
+    "numeric": ["INTEGER", "SMALLINT", "BIGINT", "DECIMAL", "REAL", "DOUBLE PRECISION"],
     "char": ["CHAR", "VARCHAR", "TEXT"],
     "boolean": ["BOOLEAN"],
-    "datetime": ["DATE", "TIME", "DATETIME", "TIMESTAMP"],
-    "money": ["MONEY", "DECIMAL"],
-    "url": ["URL", "IMAGE_URL", "VIDEO_URL"]
+    "datetime": ["DATE", "TIME", "TIMESTAMP"], // ✅ DATETIME supprimé
+    "money": ["MONEY", "NUMERIC"],             // NUMERIC est plus sûr pour les montants
+    "url": ["URL"]                            // ✅ les URL sont stockées en TEXT
 };
 
 const DEFAULT_VALUES = {
@@ -12,32 +12,48 @@ const DEFAULT_VALUES = {
     "SMALLINT": "DEFAULT 0",
     "BIGINT": "DEFAULT 0",
     "DECIMAL": "DEFAULT 0.0",
-    "FLOAT": "DEFAULT 0.0",
+    "REAL": "DEFAULT 0.0",
+    "DOUBLE PRECISION": "DEFAULT 0.0",
     "CHAR": "DEFAULT ''",
     "VARCHAR": "DEFAULT ''",
     "TEXT": "DEFAULT ''",
     "BOOLEAN": "DEFAULT FALSE",
     "DATE": "DEFAULT CURRENT_DATE",
     "TIME": "DEFAULT CURRENT_TIME",
-    "DATETIME": "DEFAULT CURRENT_TIMESTAMP",
     "TIMESTAMP": "DEFAULT CURRENT_TIMESTAMP",
     "MONEY": "DEFAULT 0",
-    "URL": "DEFAULT ''",
-    "IMAGE_URL": "DEFAULT ''",
-    "VIDEO_URL": "DEFAULT ''"
+    "NUMERIC": "DEFAULT 0",
+    "URL": "DEFAULT ''" // ✅ utilisé pour stocker les liens
 };
 
 
+
 // Remplir le select existant dans le DOM
-document.addEventListener("DOMContentLoaded", () => {
+/* document.addEventListener("DOMContentLoaded", () => {
     const typeSelect = document.getElementById("typeSelect");
-    if (!typeSelect) return; // si l'élément n'existe pas, on sort
+    if (!typeSelect) return; */ // si l'élément n'existe pas, on sort
 
     // On parcourt toutes les valeurs de SQL_TYPES et on crée des options
-    Object.values(SQL_TYPES).flat().forEach(type => {
+    /* Object.values(SQL_TYPES).flat().forEach(type => {
         const option = document.createElement("option");
         option.value = type;
         option.textContent = type;
         typeSelect.appendChild(option);
     });
-});
+}); */
+
+// list_type_data.js
+export function createTypeSelect(name = "type_of_column", id = null) {
+    const select = document.createElement("select");
+    select.name = name;
+    if (id) select.id = id;
+
+    Object.values(SQL_TYPES).flat().forEach(type => {
+        const option = document.createElement("option");
+        option.value = type;
+        option.textContent = type;
+        select.appendChild(option);
+    });
+
+    return select;
+}

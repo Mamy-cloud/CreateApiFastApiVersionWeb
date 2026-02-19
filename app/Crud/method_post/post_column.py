@@ -5,6 +5,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from pydantic import BaseModel
 from app.database.database_web import get_session
 from app.request_and_data.PostgreSQL_request import post_add_columns_sql
+from app.database.database_web import engine
 
 router = APIRouter()
 
@@ -27,6 +28,9 @@ async def add_columns(
         await db.execute(sql)
         await db.commit()
         await db.close()
+
+        # Relancer les connexions après modification du schéma await
+        await engine.dispose()
         added = ", ".join([col.name for col in request.columns])
         return {"message": f"Colonne(s) {added} ajoutée(s) à {table_name}"}
     except Exception as e:

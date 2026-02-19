@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Table</title>
+    <link rel="stylesheet" href="../static/css/table.css">
 </head>
 <body>
 
@@ -17,26 +18,55 @@
 
     <h2>Ajouter une colonne</h2>
 
-    <form id="addColumnForm" data-tablename="ma_table">
-        <input type="text" id="columnName" placeholder="Nom de la colonne" required>
-        <select id="typeSelect">
-            <option value="">-- Choisir un type --</option>
-        </select>
+    <form id="addColumnForm">
 
-        <button type="button" id="addColumnBtn">Ajouter colonne</button>
+        <!-- créer une colonne -->
+        <div id="columns">
+            <h3>Colonnes</h3>
+            <table border="1">
+            <thead>
+                <tr>
+                <th>Nom de colonne</th>
+                <th>Type</th>
+                </tr>
+            </thead>
+            <tbody id="columnsBody">
+                <tr class="column">
+                <td>
+                    <input type="text" name="column_name" placeholder="Nom de colonne" required>
+                </td>
+                <td>
+                    <div id="typeSelectContainer"></div>
+                </td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+        
+        <br>
+        <button type="button" id="addColumnBtn">Ajouter une colonne</button>
+
+        <!-- Bouton pour lancer la prévisualisation --> 
+         <button type="button" id="previewBtn">Prévisualiser les listes de colonnes</button>
         
     <!-- Table pour voir les colonnes ajoutées avant envoi -->
-     <h2>visualisation en cache</h2>
+    <div id="columnsPreviewContainer">
+    <h2>Visualisation en cache</h2>
     <table border="1" id="columnsPreview">
         <thead>
-            <tr>
-                <th>Nom de la colonne</th>
-                <th>Type</th>
-            </tr>
+        <tr>
+            <th>Nom de colonne</th>
+            <th>Type</th>
+        </tr>
         </thead>
-        <tbody></tbody>
+        <tbody>
+        <!-- Les lignes de prévisualisation seront injectées ici par previsualisation_component.js -->
+        </tbody>
     </table>
+    </div>
+
     <br>
+
 
      <button type="button" id="validateColumnsBtn">Valider colonnes</button>
     </form>
@@ -55,7 +85,7 @@
 
     <table>
         <thead id="columnsTable"></thead> <!-- Contiendra uniquement les noms de colonnes -->
-        <tbody id="rowsTable"></tbody>    <!-- Contiendra les données des lignes si besoin -->
+            
     </table>
 
 
@@ -98,12 +128,17 @@
 
      </script>
 
+      <!-- charger le formulaire pour la colonne -->
+     <script type="module" src="/static/JS/component_ui/add_column.js"></script>
+     <!-- prévisulaiser la colonne -->
+      <script type="module" src="/static/JS/component_ui/previsualisation_column.js"></script>
+
      <script src="/static/JS/method_get/get_row.js"></script>
 
      <script src="/static/JS/method_post/post_rename_table.js"></script>
 
-     <script src="/static/JS/method_post/post_column.js"></script>
+     <script type="module" src="/static/JS/method_post/post_column.js"></script>
 
-     <script src="/static/JS/list_type_data.js"></script>
+     <script type="module" src="/static/JS/list_type_data.js"></script>
 </body>
 </html>

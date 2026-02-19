@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Créer une table</title>
-    
+    <link rel="stylesheet" href="../static/css/table.css">
 </head>
 <body>
     <h1>Création d'une table SQL</h1>
@@ -17,16 +17,31 @@
 
         <div id="columns">
             <h3>Colonnes</h3>
-            <div class="column">
-                <input type="text" name="column_name" placeholder="Nom de colonne" required>
-                <select name="type_of_column" id="typeSelect"></select>
-            </div>
+            <table border="1">
+            <thead>
+                <tr>
+                <th>Nom de colonne</th>
+                <th>Type</th>
+                </tr>
+            </thead>
+            <tbody id="columnsBody">
+                <tr class="column">
+                <td>
+                    <input type="text" name="column_name" placeholder="Nom de colonne" required>
+                </td>
+                <td>
+                    <div id="typeSelectContainer"></div>
+                </td>
+                </tr>
+            </tbody>
+            </table>
         </div>
         <!-- Ici tu insères le bloc de règles --> 
         <div class="verification_name" data-target="column_name"></div>
 
 
-        <button type="button" id="addColumnBtn" onclick="addColumn()">Ajouter une colonne</button>
+        <button type="button" id="addColumnBtn">Ajouter une colonne</button>
+
         <button type="submit" id="createTableBtn">Créer la table</button>
 
         
@@ -52,26 +67,19 @@
 
 
     <!-- Charger la liste des types -->
-    <script src="/static/JS/list_type_data.js"></script>
+    <script type="module" src="/static/JS/list_type_data.js"></script>
+
+    <!-- charger le formulaire pour la colonne -->
+     <script type="module" src="/static/JS/component_ui/add_column.js"></script>
 
     <!-- Charger la logique de création -->
-    <script src="/static/JS/method_get/get_create_table.js"></script>
+    <script type="module" src="/static/JS/method_get/get_create_table.js"></script>
 
     <!-- charger la liste des tables -->
      <script src="/static/JS/method_get/get_list_table.js"></script>
 
      <!-- charger le webSocket de fastApi -->
      <!-- <script src="/static/JS/webSocket.js"></script> -->
-
-     <!-- <script> 
-        document.getElementById("openTableBtn").addEventListener("click", () => 
-        { const tableName = document.getElementById("tableSelect").value; 
-            if (tableName) {
-                 window.location.href = `/admin/${tableName}`; 
-                 } 
-            else { alert("Veuillez sélectionner une table !"); } 
-            }); 
-    </script> -->
 
     <!-- toujour l'inclure pour vérifier le nom et l'adapter le getElementById -->
      <script type="module" src="/static/JS/gestion_error/gestion_error_name.js"></script>
@@ -81,4 +89,5 @@
     
     <!-- ----------------------------------------------------------------------------------->
 </body>
+
 </html>

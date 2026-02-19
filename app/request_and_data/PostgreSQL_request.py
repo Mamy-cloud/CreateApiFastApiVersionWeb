@@ -2,29 +2,17 @@
 from sqlalchemy import text
 
 def build_create_table_sql(table_name, columns, default_values):
-    # ⚡ Sécuriser le nom de table
-    sql = f'CREATE TABLE "{table_name}" (\n'
-    sql += "    id SERIAL PRIMARY KEY,\n"
-
+    sql = f'CREATE TABLE "{table_name}" (\n    id SERIAL PRIMARY KEY,\n'
     for col in columns:
         col_name = col["column_name"]
         col_type = col["type_of_column"]
-
-        # Valeur par défaut
-        if col_type in default_values:
-            default_val = default_values[col_type]
-            if isinstance(default_val, str):
-                default_val = f"DEFAULT '{default_val}'"
-            else:
-                default_val = f"DEFAULT {default_val}"
+        default_val = default_values.get(col_type)
+        if default_val is not None:
+            sql += f'    "{col_name}" {col_type} DEFAULT {default_val},\n'
         else:
-            default_val = ""
-
-        sql += f'    "{col_name}" {col_type} {default_val},\n'
-
+            sql += f'    "{col_name}" {col_type},\n'
     sql = sql.rstrip(",\n") + "\n);"
     return sql
-
 
 #----------------------get name list table----------------------------
 

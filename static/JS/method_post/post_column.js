@@ -1,56 +1,35 @@
-let columnsToAdd = [];
+// post_column.js
+import { getColumnsJSON, showPreview } from "../component_ui/previsualisation_column.js";
+
+// Récupère le nom de la table depuis l'URL
 const addColumntableName = window.location.pathname.split("/").pop();
 
-
-// Ajouter colonne dans le tableau de prévisualisation
-document.getElementById("addColumnBtn").addEventListener("click", () => {
-    const name = document.getElementById("columnName").value.trim();
-    const type = document.getElementById("typeSelect").value;
-
-    if (!name || !type) {
-        alert("Nom et type obligatoires !");
-        return;
-    }
-
-    columnsToAdd.push({ name, type });
-
-    // Ajouter ligne dans le tableau de prévisualisation
-    const row = document.createElement("tr");
-    row.innerHTML = `<td>${name}</td><td>${type}</td>`;
-    document.getElementById("columnsPreview").appendChild(row);
-
-    // Reset champs
-    document.getElementById("columnName").value = "";
-    document.getElementById("typeSelect").value = "";
-});
-
-// Valider et envoyer les colonnes au backend
 document.getElementById("validateColumnsBtn").addEventListener("click", async () => {
-    if (columnsToAdd.length === 0) {
-        alert("Aucune colonne à ajouter !");
-        return;
-    }
+  // Récupérer les colonnes saisies
+  const columnsToAdd = getColumnsJSON();
 
-    try {
-        const response = await fetch(`/admin/tables/${addColumntableName}/add-columns`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ columns: columnsToAdd })
-        });
+  if (columnsToAdd.length === 0) {
+    alert("Aucune colonne valide à ajouter !");
+    return;
+  }
 
-        if (!response.ok) throw new Error("Erreur serveur : " + response.status);
+  // Affiche la prévisualisation
+  showPreview(columnsToAdd);
+  console.log(columnsToAdd)
+  try {
+    const response = await fetch(`/admin/tables/${addColumntableName}/add-columns`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ columns: columnsToAdd })
+    });
 
-        const result = await response.json();
-        alert("✅ Colonnes ajoutées avec succès !");
-        
+    if (!response.ok) throw new Error("Erreur serveur : " + response.status);
 
-        columnsToAdd = [];
-        document.getElementById("columnsPreview").innerHTML = "";
-
-        // Rechargement de la page actuelle
-        window.location.reload();
-    } catch (err) {
-        alert("❌ Erreur : " + err.message);
-        console.error(err);
-    }
+    const result = await response.json();
+    alert("✅ Colonnes ajoutées avec succès !");
+    window.location.reload();
+  } catch (err) {
+    alert("❌ Erreur : " + err.message);
+    console.error(err);
+  }
 });
