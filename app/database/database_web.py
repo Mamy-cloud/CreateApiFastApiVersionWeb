@@ -9,7 +9,7 @@ from typing import AsyncGenerator
 
 load_dotenv()
 
-DATABASE_URL = os.getenv("DATABASE_URL")
+DATABASE_URL = os.getenv("DATABASE_URL_ASYNC")
 # Exemple : "postgresql+asyncpg://user:password@localhost:5432/ma_base"
 
 # 1️⃣ Créer l'engine asynchrone
