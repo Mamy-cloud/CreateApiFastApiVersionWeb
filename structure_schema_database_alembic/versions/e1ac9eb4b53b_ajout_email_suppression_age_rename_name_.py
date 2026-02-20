@@ -1,13 +1,22 @@
-"""ajout col_c, suppression col_b, renommage col_a -> col_name"""
+"""
 
+Revision ID: e1ac9eb4b53b
+Revises: e9bad8f320e0
+Create Date: 2026-02-20 14:23:53.421368
+
+"""
 from alembic import op
 import sqlalchemy as sa
 
-# Révision Alembic
-revision = "20260220_upload_download_column"
-down_revision = None  # ou l'ID de la migration précédente si tu en as une
+
+# revision identifiers, used by Alembic.
+revision = 'e1ac9eb4b53b'
+down_revision = 'e9bad8f320e0'
 branch_labels = None
 depends_on = None
+
+"""ajout col_c, suppression col_b, renommage col_a -> col_name"""
+
 
 
 def upgrade():

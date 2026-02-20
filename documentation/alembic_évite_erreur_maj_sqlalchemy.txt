@@ -1,0 +1,8 @@
+alembic évite les erreur de vérification de sqlAlchemy lorsque je post/put/delete column
+
+----------------installation alembic:
+utiliser pip ou github
+
+et mettre la structure à la racine
+si utiliser github il ne faut pas le supprimer
+------------------------------------
