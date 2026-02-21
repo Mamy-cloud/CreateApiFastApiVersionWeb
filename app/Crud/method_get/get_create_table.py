@@ -9,7 +9,7 @@ from pathlib import Path
 
 router = APIRouter()
 
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
+
 
 @router.post("/admin/tables/json")
 

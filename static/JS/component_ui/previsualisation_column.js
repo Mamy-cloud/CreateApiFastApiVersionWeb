@@ -1,23 +1,6 @@
 // previsualisation_component.js
 import { addColumn } from "./add_column.js";
 
-// Récupère toutes les colonnes saisies et retourne un JSON validé
-export function getColumnsJSON() {
-  const rows = document.querySelectorAll("#columnsBody tr.column");
-  const columns = [];
-
-  rows.forEach(row => {
-    const name = row.querySelector("input[name='column_name']").value.trim();
-    const type = row.querySelector("select[name='type_of_column']").value;
-
-    if (name && type) {
-      columns.push({ name, type });
-    }
-  });
-
-  return columns;
-}
-
 // Affiche la prévisualisation dans le tableau fourni par ton HTML
 export function showPreview(columns) {
   const tbody = document.querySelector("#columnsPreview tbody");

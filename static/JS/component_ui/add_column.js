@@ -1,5 +1,5 @@
 // add_column.js
-import { createTypeSelect } from "../list_type_data.js";
+import { createTypeSelect } from "../postgreSql_data/list_type_data.js";
 
 export function addColumn() {
     // Créer une ligne <tr>

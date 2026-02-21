@@ -1,9 +1,9 @@
-
+const pathParts = window.location.pathname.split("/");
+const oldName = pathParts[pathParts.length - 1]; // récupère {table_name}
 
 document.getElementById("renameTableForm").addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const oldName = e.target.dataset.oldname; // récupéré depuis l'attribut data-oldname
   const newName = document.getElementById("newName").value;
 
   try {
@@ -21,14 +21,10 @@ document.getElementById("renameTableForm").addEventListener("submit", async (e) 
     alert("✅ " + result.message);
 
     // Recharge l’interface admin/tables
-    
     window.location.href = "/admin/" + newName;
-
-
 
   } catch (error) {
     alert("❌ Erreur: " + error.message);
     console.error(error);
   }
 });
-

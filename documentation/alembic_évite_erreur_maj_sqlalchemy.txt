@@ -6,3 +6,6 @@ utiliser pip ou github
 et mettre la structure à la racine
 si utiliser github il ne faut pas le supprimer
 ------------------------------------
+mode d'utilisation:
+
+on le met à la racine du projet

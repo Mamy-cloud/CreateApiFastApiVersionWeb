@@ -9,6 +9,7 @@
     <form id="createTableForm">
         <label for="tableName">Nom de la table :</label>
         <input type="text" id="tableName" name="tableName" required>
+
         <!-- Ici tu insères le bloc de règles --> 
         <div class="verification_name" data-target="tableName"></div>
         <br>
@@ -67,10 +68,12 @@
 
 
     <!-- Charger la liste des types -->
-    <script type="module" src="/static/JS/list_type_data.js"></script>
+    <script type="module" src="/static/JS/postgreSql_data/list_type_data.js"></script>
 
     <!-- charger le formulaire pour la colonne -->
      <script type="module" src="/static/JS/component_ui/add_column.js"></script>
+
+     <script type="module" src="/static/JS/JSON_transfer_conversion_backend/create_json_column.js"></script>
 
     <!-- Charger la logique de création -->
     <script type="module" src="/static/JS/method_get/get_create_table.js"></script>

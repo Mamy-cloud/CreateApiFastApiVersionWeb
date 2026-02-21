@@ -71,50 +71,16 @@
     </form>
     
     <p>---------------------------------------------------------------------------------</p>
-    <h2>tableau venant du db</h2>
-    <!-- <table border="1">
-        <thead>
-            <tr>
-                <th>Nom de colonne</th>
-                <th>Type de donnée</th>
-            </tr>
-        </thead>
-        <tbody id="columnsTable"></tbody>
-    </table> -->
-
-    <table>
-        <thead id="columnsTable"></thead> <!-- Contiendra uniquement les noms de colonnes -->
-            
-    </table>
-
-
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Nom de la ligne</th>
-                <th>Valeur</th>
-            </tr>
-        </thead>
-        <tbody id="rowsTable"></tbody>
-    </table>
-
-
-    <script>
-    // Récupérer le nom de la table depuis l’URL
-    const pathParts = window.location.pathname.split("/");
-    const tableName = pathParts[pathParts.length - 1];
-    document.getElementById("tableTitle").textContent = "Colonnes de la table : " + tableName;
-    document.getElementById("tableTitle").textContent =
-            "Colonnes de la table : " + tableName;
-
-        document.getElementById("renameTableForm")
-            .dataset.oldname = tableName;
-    </script>
+   
+    <h1>Données de la table</h1> 
+    <table border="1"> 
+        <thead id="columnsTable"></thead> 
+        <tbody id="rowsTable"></tbody> 
     
-    
-    <!-- get column -->
-     <script src="/static/JS/method_get/get_column.js"></script>
+    </table> 
 
+   <input type="date" name="" id="">
+    
      <!-- charger le webSocket de fastApi -->
      <!-- <script src="/static/JS/webSocket.js"></script> -->
 
@@ -127,17 +93,22 @@
 
      </script>
 
+     <!-- get table -->
+      <script type="module" src="/static/JS/component_ui/display_table_header.js"></script>
+      <script type="module" src="/static/JS/component_ui/display_table_row.js"></script>
+     <script type="module" src="/static/JS/method_get/get_table_column_row.js"></script>
+
       <!-- charger le formulaire pour la colonne -->
      <script type="module" src="/static/JS/component_ui/add_column.js"></script>
      <!-- prévisulaiser la colonne -->
       <script type="module" src="/static/JS/component_ui/previsualisation_column.js"></script>
 
-     <script src="/static/JS/method_get/get_row.js"></script>
+     
 
      <script src="/static/JS/method_post/post_rename_table.js"></script>
 
      <script type="module" src="/static/JS/method_post/post_column.js"></script>
 
-     <script type="module" src="/static/JS/list_type_data.js"></script>
+     <script type="module" src="/static/JS/postgreSql_data/list_type_data.js"></script>
 </body>
 </html>

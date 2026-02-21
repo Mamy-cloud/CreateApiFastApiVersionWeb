@@ -3,3 +3,60 @@ nb: lors du post / get / put / delete, il est nécessaire de penser au schéma d
 Ne pas oublier le pool et async côté front et back end
 
 ne jamais aussi oublier le SQLAlchemy 2x.
+
+il faut créer des fichiers regex pour faire correspondre le text en code surtout pour le post
+
+
+------------------------------post row---------------------------------------------------------
+principe: 
+
+----------côté back-end
+-prendre le type de de donné de chaque colonne venant du db
+-puis le back-end transfert au front-end sous forme de json avec les types de donnée listé dans le type_data.py
+-puis front-end reçoit le json par exemple:
+[
+    {
+        id:"integer",
+        arbre:"date",
+        couleur:"VARCHAR"
+    }
+]
+
+----------côté front
+-puis le javascript fait correspondre les types de donnée du json avec un fichier appelé correspond_json_data_type.js avec les types de données dans list_type_data.js et regex_type_data_postrges.js
+
+list_type_data.js :
+const SQL_TYPES = {
+    "numeric": ["INTEGER", "SMALLINT", "BIGINT", "DECIMAL", "REAL", "DOUBLE PRECISION"],
+    "char": ["CHAR", "VARCHAR", "TEXT"],
+    "boolean": ["BOOLEAN"],
+    "datetime": ["DATE", "TIME", "TIMESTAMP"], // ✅ DATETIME supprimé
+    "money": ["MONEY", "NUMERIC"],             // NUMERIC est plus sûr pour les montants
+    "url": ["URL"]                            // ✅ les URL sont stockées en TEXT
+};
+
+regex_type_data_postrges.js:
+const SQL_REGEX = {
+  "INTEGER": /^-?\d+$/,                  // entier (positif ou négatif)
+  "SMALLINT": /^-?\d+$/,                 // idem, mais limite côté SQL
+  "BIGINT": /^-?\d+$/,                   // idem, mais peut être très grand
+  "DECIMAL": /^-?\d+(\.\d+)?$/,          // nombre avec décimales
+  "REAL": /^-?\d+(\.\d+)?$/,             // flottant
+  "DOUBLE PRECISION": /^-?\d+(\.\d+)?$/, // flottant
+  "BOOLEAN": /^(true|false|0|1)$/i,      // booléen (true/false ou 0/1)
+  "TEXT": /^.*$/,                        // toute chaîne
+  "VARCHAR": /^.*$/,                     // toute chaîne
+  "CHAR": /^.{1}$/,                      // un seul caractère
+  "DATE": /^\d{4}-\d{2}-\d{2}$/,         // format ISO YYYY-MM-DD
+  "TIME": /^\d{2}:\d{2}(:\d{2})?$/,      // HH:MM ou HH:MM:SS
+  "TIMESTAMP": /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}(:\d{2})?$/, // YYYY-MM-DD HH:MM[:SS]
+  "URL": /^(https?:\/\/[^\s]+)$/         // URL basique (http ou https)
+};
+
+
+voici ce qui se passe dans le fichier correspond_json_data_type.js:
+je parcours les valeurs du json et je parcours les valeurs du const SQL_TYPES dans le fichier list_type_data.js:
+je retourne le résultat sous forme text
+
+-puis il y a un javascript gestion_type_data_error.js pour entrer le type correspondant sinon il y a un message d'erruer 
+exemple: si j'entre un type date dans la colonne arbre, il s'affiche, erreur entrer un donné de type varchar

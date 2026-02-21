@@ -72,3 +72,25 @@ envoyer en Json
 résultat JSON
 
 [{"row_name": "nom de la ligne"},{"value_data": "valeur de la ligne"}]
+
+-------------------------------------table-------------------------------------------------
+
+[
+    {
+        
+        id:"1",
+        arbre:"sapin",
+        couleur:"couleur rouge",        
+        
+    },
+    {
+        id:"2",
+        arbre:"pin",
+        couleur:"bleu"
+    },
+    {
+        id:"2",
+        arbre:"oranger",
+        couleur:"noir"
+    }
+]

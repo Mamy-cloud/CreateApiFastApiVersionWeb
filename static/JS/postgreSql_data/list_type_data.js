@@ -28,20 +28,6 @@ const DEFAULT_VALUES = {
 
 
 
-// Remplir le select existant dans le DOM
-/* document.addEventListener("DOMContentLoaded", () => {
-    const typeSelect = document.getElementById("typeSelect");
-    if (!typeSelect) return; */ // si l'élément n'existe pas, on sort
-
-    // On parcourt toutes les valeurs de SQL_TYPES et on crée des options
-    /* Object.values(SQL_TYPES).flat().forEach(type => {
-        const option = document.createElement("option");
-        option.value = type;
-        option.textContent = type;
-        typeSelect.appendChild(option);
-    });
-}); */
-
 // list_type_data.js
 export function createTypeSelect(name = "type_of_column", id = null) {
     const select = document.createElement("select");

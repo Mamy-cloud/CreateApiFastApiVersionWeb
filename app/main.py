@@ -2,20 +2,22 @@ from fastapi import FastAPI, Depends
 from sqlalchemy.orm import Session
 from sqlalchemy import text
 from app.database import database_web
-from app.Crud.method_get import get_create_table
+
 from fastapi.staticfiles import StaticFiles
 from pathlib import Path
 from fastapi.responses import FileResponse
-from app.Crud.method_get import get_list_table
+
 from app.traitement_asynch.webSocket import router as websocket_router
 from fastapi.middleware.cors import CORSMiddleware
-from app.Crud.method_get.get_column import router as list_columns
-from app.Crud.method_get import get_column
-from app.Crud.method_get import get_row
+#---------------get--------------------------
+from app.Crud.method_get import get_create_table
+from app.Crud.method_get import get_table
+from app.Crud.method_get import get_list_table
 #--------------post-----------------------------
 from app.Crud.method_post import post_rename_table
 from app.Crud.method_post import post_column
 from app.Crud.method_post.post_column import router as add_column
+
 
 
 app = FastAPI()
@@ -60,17 +62,16 @@ async def show_table_page(table_name: str):
 # Inclure le router pour les routes /admin/tables/list
 app.include_router(get_list_table.router)
 
-#inclure le router pour les routes get_column
-app.include_router(get_column.router)
 
-#inclure le router pour les routes get_row
-app.include_router(get_row.router)
 
 #inclure le router pour les routes rename_colonne
 app.include_router(post_rename_table.router)
 
 #inclure le router pour les routes add_colonne
 app.include_router(post_column.router)
+
+#inclure le router pour les routes get_table
+app.include_router(get_table.router)
 
 # Inclure le WebSocket 
 """ app.include_router(websocket_router) """
